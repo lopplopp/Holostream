@@ -30,12 +30,13 @@ export default function Content(){
         }
         
         fetchData()
+        console.log(stream)
     }, [channel])
 
 
     return(
-        <>
-        {!stream.length?"There are currently no stream"
+        <div className={stream.length?"content":"content no-stream"}>
+        {!stream.length?<h2 className="no-stream-text">There are currently no stream</h2>
         :stream.map((data) => {
             return(
                     <div key={data.id} className="thumbnail">
@@ -59,6 +60,6 @@ export default function Content(){
                     </div>
             )
         })}
-        </>
+        </div>
     )
 }

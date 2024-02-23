@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import YouTube from 'react-youtube'
+import './stream.css'
 
 
 export default function Stream(){
@@ -13,8 +14,8 @@ export default function Stream(){
         },}
     
     return(
-        <>
-            <YouTube videoId={param.id} opts={opts}/>
-        </>
+        <div className="content">
+            <YouTube className="video" videoId={param.id} opts={opts}/>
+        </div>
     )
 }

@@ -1,15 +1,8 @@
-.content{
-  grid-row:2/-1;
-  grid-column: 2/-1;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
+
 
 .thumbnail {
     width: 350px;
     margin: 20px;
-    border: 1px black solid;
     height: 285px;
   }
 
