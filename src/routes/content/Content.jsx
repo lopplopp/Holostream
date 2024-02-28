@@ -25,12 +25,19 @@ export default function Content(){
             let newList = channel.includes('all')
             ?list.filter((data) => {return data.channel.org === 'Hololive'})
             :list.filter((data) => {return data.channel.org === 'Hololive' && channel.includes(data.channel.suborg)})
+
+            if(channel.includes('live')){
+                let updateList = newList.filter((data) => {return data.status === 'live'})
+                return updateList
+            }else if(channel.includes('upcoming')){
+                let updateList = newList.filter((data) => {return data.status === 'upcoming'})
+                return updateList
+            }
            
             return newList
         }
         
         fetchData()
-        console.log(stream)
     }, [channel])
 
 

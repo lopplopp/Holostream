@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home/Home.jsx'
 import Content from './routes/content/Content.jsx'
 import Stream from './routes/stream/Stream.jsx'
-import './index.css'
+import About from './routes/about/About.jsx'
 
 const router = createBrowserRouter([
   {path:'/', 
@@ -13,7 +13,8 @@ const router = createBrowserRouter([
   children:[
     {index: true, element:<Content/>},
     {path:'stream', element:<Content/>},
-    {path:'stream/:id', element: <Stream/>}
+    {path:'stream/:id', element: <Stream/>},
+    {path:'about', element:<About />}
   ]
   }
 ])

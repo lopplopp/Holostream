@@ -2,13 +2,15 @@
 
 .thumbnail {
     width: 350px;
-    margin: 20px;
+    margin: 10px;
     height: 285px;
   }
 
 .thumbnailImage {
   margin: -10% 0 -11% 0;
   width: 100%;
+  -webkit-user-drag: none;
+
 }
 
 .thumbnaill-container{
@@ -45,6 +47,7 @@
   object-fit: contain;
   border-radius: 25px;
   margin: 0 5px;
+  -webkit-user-drag: none;
 }
 
 .title{

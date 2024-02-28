@@ -2,12 +2,18 @@ body, #root, html{
     height: 100%;
     margin: 0;
     width: 100%;
+    user-select: none;
 }
 
 .body{
     display: grid;
     grid-template-columns: 200px 4fr;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: 70px 1fr;
+    height: 100%;
+}
+
+.body.closeSidebar{
+    grid-template-columns: 35px 4fr;
 }
 
 .header{
@@ -16,6 +22,30 @@ body, #root, html{
     background-color: rgb(106, 158, 255);
     display: flex;
     justify-content: space-between;
+}
+
+.headerLeft{
+    display: flex;
+    align-items: center;
+}
+
+.header-tab{
+    display: flex;
+    font-size: 20px;
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 80px;
+}
+
+.tab{
+    padding:8px;
+    border-radius: 5px;
+}
+
+.tab:active{
+    background-color: rgb(80, 138, 247);
+    box-shadow: 0 0 3px rgb(80, 138, 247);
 }
 
 .header-text{
@@ -27,6 +57,19 @@ body, #root, html{
     grid-row:2/-1;
     grid-column: 1/2;
     background-color: rgb(51, 51, 51);
+}
+
+.sidebarLogo{
+    object-fit: contain;
+    height: 40px;
+}
+
+.opensidebarTab{
+    display: flex;
+    height: 100%;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -58,7 +101,9 @@ body, #root, html{
     padding-left: 20px;
 }
 
-
+.gen.hidden{
+    display:none;
+}
 
 .gen a, .group{
     text-decoration: none;
@@ -76,7 +121,7 @@ body, #root, html{
     padding-left: 30px;
   } 
   
-  .no-stream{
+  .no-stream, .about{
     justify-content: center;
     padding: 50px 0;
   }
