@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import sidebarLogo from '../../assets/menu.png'
 import './home.css'
@@ -7,7 +7,21 @@ import './home.css'
 export default function Home(){
     const [ channel, setChannel ] = useState(['all'])
     const [ close, setClose ] = useState(false)
+    const [ mobile, setMobile ] = useState(window.innerWidth <= 1040)
+    const [ sidebarHidden, setSidebarHidden] = useState(true)
+    const [ headerTabHidden, setHeaderTabHidden ] = useState(true)
     const nav = useNavigate();
+
+    function handleWindowSizeChange(){
+        setMobile(window.innerWidth <= 1040)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange)
+        }
+    }, [])
 
     function handleClick(event){
         event.stopPropagation()
@@ -16,6 +30,7 @@ export default function Home(){
         let newArray = [event.target.id];
         event.target.classList.toggle('active')
         setChannel(newArray)
+        if(mobile){setSidebarHidden(sidebarHidden?false:true)}
     }
 
     function handleGroupClick(event){
@@ -28,9 +43,17 @@ export default function Home(){
         }     
         event.target.classList.toggle('active')
         setChannel(newArray)
+        if(mobile){setSidebarHidden(sidebarHidden?false:true)}
     }
 
     function handleHomeClick(){
+        nav('/stream');
+        removeActive();
+        setChannel(['all'])
+        if(mobile){setHeaderTabHidden(headerTabHidden?false:true)}
+    }
+
+    function handleTitleClick(){
         nav('/stream');
         removeActive();
         setChannel(['all'])
@@ -38,12 +61,14 @@ export default function Home(){
 
     function handleAboutClick(){
         nav('/about')
+        if(mobile){setHeaderTabHidden(headerTabHidden?false:true)}
     }
     function handleStatusClick(status){
         nav('/stream');
         removeActive();
         let newArray = ['all', status];
         setChannel(newArray);
+        if(mobile){setHeaderTabHidden(headerTabHidden?false:true)}
     }
 
     function removeActive(){
@@ -55,21 +80,40 @@ export default function Home(){
         setClose(close?false:true)
     }
 
+    function handleSidebarHidden(){
+        setSidebarHidden(sidebarHidden?false:true)
+    }
+
+    function handleHeaderTabHidden(){
+        setHeaderTabHidden(headerTabHidden?false:true)
+    }
+    
+
     return(
         <div className={close?'body closeSidebar':'body'}>
             <div className="header">
                 <div className="headerLeft">
-                    <div className="opensidebarTab" onClick={toggleSidebar}><img className='sidebarLogo' src={sidebarLogo} /></div>
-                    <div className='header-text' onClick={handleHomeClick}>HoloStream</div>
+                    <div className="opensidebarTab" onClick={mobile?handleSidebarHidden:toggleSidebar}><img className='sidebarLogo' src={sidebarLogo} /></div>
+                    <div className='header-text' onClick={handleTitleClick}>HoloStream</div>
                 </div>
-                <div className='header-tab'>
+                {mobile?<>
+                            <div className='headerTabTab' onClick={handleHeaderTabHidden}><img className='headerTabLogo'  src={sidebarLogo} /></div>
+                            <div className= {headerTabHidden?'headerTab hidden':'headerTab'}>
+                                <div className='tab' onClick={handleHomeClick}>Home</div>
+                                <div className='tab' onClick={() => {handleStatusClick('live')}}>Live</div>
+                                <div className='tab' onClick={() => {handleStatusClick('upcoming')}}>Upcoming</div>
+                                <div className='tab' onClick={handleAboutClick}>About</div>
+                            </div>
+                        </>
+                :<div className='header-tab'>
                     <div className='tab' onClick={handleHomeClick}>Home</div>
                     <div className='tab' onClick={() => {handleStatusClick('live')}}>Live</div>
                     <div className='tab' onClick={() => {handleStatusClick('upcoming')}}>Upcoming</div>
                     <div className='tab' onClick={handleAboutClick}>About</div>
-                </div>
+                </div>}
+                
             </div>
-            <div className="sidebar">
+            <div className={sidebarHidden?'sidebar hidden': 'sidebar'}>
                 <div className='group'  ><h2 className='group-name' onClick={handleGroupClick}>{close?'JP':'Hololive JP'}</h2>
                     <div className={close?'gen hidden':'gen'} id='0v0th Generation' onClick={handleClick}>Gen 0</div>
                     <div className={close?'gen hidden':'gen'} id='c 1st Generation' onClick={handleClick}>Gen 1</div>

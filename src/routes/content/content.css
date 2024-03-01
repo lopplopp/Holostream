@@ -56,3 +56,38 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+@media only screen and (max-width: 1040px){
+  .thumbnail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 10px;
+  }
+
+.thumbnailImage {
+  margin: -10% 0 -11% 0;
+  width: 100%;
+  -webkit-user-drag: none;
+
+}
+
+.thumbnaill-container{
+  position: relative;
+  overflow: hidden;
+  height: auto;
+  width: 90%;
+}
+
+.ch-info{
+  width: 100%;  
+  justify-content: flex-start;
+}
+
+.title{
+  font-size: 1.2rem;
+  padding-bottom: 30px;
+}
+}
